@@ -12,6 +12,10 @@ const port = process.env.PORT || 3000;
 io.on('connection', (socket) => {
     console.log('User connected');
 
+    socket.on('start', () => {
+        io.emit('start');
+    })
+
     socket.on('playerData', (side, number, champion, spellOne, spellTwo) => {
         io.emit('playerData', { side: side, number: number, champion: champion, spellOne: spellOne, spellTwo: spellTwo })
         console.log(`${side} player ${number} :\r 
