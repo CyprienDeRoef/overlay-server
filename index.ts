@@ -16,12 +16,12 @@ io.on('connection', (socket) => {
         io.emit('start');
     })
 
-    socket.on('playerData', (side, number, champion, spellOne, spellTwo) => {
-        io.emit('playerData', { side: side, number: number, champion: champion, spellOne: spellOne, spellTwo: spellTwo })
+    socket.on('playerData', (side, number, player) => {
+        io.emit('playerData', { side: side, number: number }, JSON.stringify(player))
         console.log(`${side} player ${number} :\r 
-                    Champion : ${champion}\r
-                    First spell : ${spellOne}\r
-                    Second spell : ${spellTwo}\r`);
+                    Champion : ${player.champion}\r
+                    First spell : ${player.spellOne}\r
+                    Second spell : ${player.spellTwo}\r`);
     });
 
     socket.on('playerName', (side, number, name) => {
@@ -29,9 +29,9 @@ io.on('connection', (socket) => {
         console.log(`${side} player ${number} name : ${name}`)
     });
 
-    socket.on('banData', (side, number, champion) => {
-        io.emit('banData', { side: side, number: number, champion: champion })
-        console.log(`${side} ban ${number} : ${champion}`)
+    socket.on('banData', (side, number, ban) => {
+        io.emit('banData', { side: side, number: number}, JSON.stringify(ban))
+        console.log(`${side} ban ${number} : ${ban.champion}`)
     });
 
     socket.on('leftTeamName', (teamName) => {
