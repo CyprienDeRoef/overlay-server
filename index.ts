@@ -24,64 +24,18 @@ io.on('connection', (socket) => {
                     Second spell : ${player.spellTwo}\r`);
     });
 
+    socket.on('data', (left, right) => {
+        io.emit('data', JSON.stringify(left), JSON.stringify(right));
+    })
+
     socket.on('playerName', (side, number, name) => {
         io.emit('playerName', { side: side, number: number, name: name })
         console.log(`${side} player ${number} name : ${name}`)
     });
 
     socket.on('banData', (side, number, ban) => {
-        io.emit('banData', { side: side, number: number}, JSON.stringify(ban))
+        io.emit('banData', { side: side, number: number }, JSON.stringify(ban))
         console.log(`${side} ban ${number} : ${ban.champion}`)
-    });
-
-    socket.on('leftTeamName', (teamName) => {
-        io.emit('leftTeamName', teamName);
-        console.log(`Left team name : ${teamName}`);
-    });
-
-    socket.on('leftTeamColor', (color) => {
-        io.emit('leftTeamColor', color);
-        console.log(`Left team color : ${color}\r`);
-    });
-
-    socket.on('leftTeamScore', (score) => {
-        io.emit('leftTeamScore', score);
-        console.log(`Left team score : ${score}\r`);
-    });
-
-    socket.on('leftHorizontalPosition', (position) => {
-        io.emit('leftHorizontalPosition', position);
-        console.log(`Left team banner horizontal position : ${position}\r`);
-    });
-
-    socket.on('leftVerticalPosition', (position) => {
-        io.emit('leftVerticalPosition', position);
-        console.log(`Left team banner vertical position : ${position}\r`);
-    });
-
-    socket.on('rightTeamName', (teamName) => {
-        io.emit('rightTeamName', teamName);
-        console.log(`Right team name : ${teamName}`);
-    });
-
-    socket.on('rightTeamColor', (color) => {
-        io.emit('rightTeamColor', color);
-        console.log(`Right team color : ${color}\r`);
-    });
-
-    socket.on('rightTeamScore', (score) => {
-        io.emit('rightTeamScore', score);
-        console.log(`Right team score : ${score}\r`);
-    });
-
-    socket.on('rightHorizontalPosition', (position) => {
-        io.emit('rightHorizontalPosition', position);
-        console.log(`Right team banner horizontal position : ${position}\r`);
-    });
-
-    socket.on('rightVerticalPosition', (position) => {
-        io.emit('rightVerticalPosition', position);
-        console.log(`Right team banner vertical position : ${position}\r`);
     });
 });
 
